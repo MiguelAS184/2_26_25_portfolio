@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+import { FaJava, FaPython, FaJsSquare, FaDatabase, FaHtml5, FaCss3Alt, FaPhp, FaRProject } from "react-icons/fa";
+import { SiCplusplus, SiDbeaver, SiVisualstudioCode, SiR, SiJupyter, SiEclipseide } from "react-icons/si";
+import { FaTerminal } from "react-icons/fa";
 import myPhoto from "./assets/my_image.jpg";
 import Chatbot from "./components/Chatbot";
 
-const profilePic = "https://via.placeholder.com/150";
-const backgroundImage = "https://images.pexels.com/photos/1624438/pexels-photo-1624438.jpeg?cs=srgb&dl=pexels-eberhardgross-1624438.jpg&fm=jpg"; // Background image
+const backgroundImage = "https://images.pexels.com/photos/1624438/pexels-photo-1624438.jpeg?cs=srgb&dl=pexels-eberhardgross-1624438.jpg&fm=jpg";
 
 export default function ResumeApp() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -21,6 +23,26 @@ export default function ResumeApp() {
     "Programming in Unix/Linux",
     "Computer Architecture and Organization",
     "Calculus II"
+  ];
+
+  const languages = [
+    { name: "Java", icon: <FaJava /> },
+    { name: "JavaScript", icon: <FaJsSquare /> },
+    { name: "SQL", icon: <FaDatabase /> },
+    { name: "HTML", icon: <FaHtml5 /> },
+    { name: "Python", icon: <FaPython /> },
+    { name: "C++", icon: <SiCplusplus /> },
+    { name: "PHP", icon: <FaPhp /> },
+    { name: "R", icon: <FaRProject /> }
+  ];
+
+  const software = [
+    { name: "DBeaver", icon: <SiDbeaver /> },
+    { name: "VS Code", icon: <SiVisualstudiocode /> },
+    { name: "R Studio", icon: <SiR /> },
+    { name: "Jupyter Notebooks", icon: <SiJupyter /> },
+    { name: "Eclipse", icon: <SiEclipseide /> },
+    { name: "PuTTY", icon: <FaTerminal /> }
   ];
 
   const projects = [
@@ -56,12 +78,10 @@ export default function ResumeApp() {
         {/* Profile Picture */}
         <img src={myPhoto} alt="Profile" className="w-32 h-32 rounded-full border-4 border-white shadow-lg mt-5" />
 
-
         {/* Typing Animation for Name */}
         <div className="text-4xl font-bold mt-4">
           <Typewriter words={["Miguel Angel Soler"]} loop={1} typeSpeed={100} deleteSpeed={50} />
         </div>
-
 
         <p className="text-lg mt-2">Data Analyst | Portfolio</p>
 
@@ -75,7 +95,7 @@ export default function ResumeApp() {
           </p>
         </div>
 
-        {/* Courses of Interest */}
+        {/* Courses of Interest Section */}
         <div className="mt-8">
           <h2 className="text-3xl font-bold mb-4">Courses of Interest</h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-300">
@@ -87,29 +107,35 @@ export default function ResumeApp() {
           </ul>
         </div>
 
-        {/* Projects Section */}
+        {/* Skills Section */}
         <div className="mt-12">
-          <h2 className="text-3xl font-bold mb-4">Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                className="bg-gray-800 p-6 rounded-xl shadow-md hover:shadow-lg transition cursor-pointer"
-                whileHover={{ scale: 1.05 }}
-                onClick={() => setSelectedProject(project)}
-              >
-                <h3 className="text-xl font-semibold">{project.title}</h3>
-                <p className="text-gray-300">{project.description}</p>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 underline mt-2 block"
-                >
-                  View Project
-                </a>
-              </motion.div>
-            ))}
+          <h2 className="text-3xl font-bold mb-4">My Skills</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Programming Languages */}
+            <div className="bg-gray-800 p-6 rounded-xl shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Languages</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {languages.map((lang, index) => (
+                  <div key={index} className="flex flex-col items-center bg-gray-700 p-4 rounded-lg shadow">
+                    <span className="text-4xl">{lang.icon}</span>
+                    <p className="mt-2">{lang.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Software Experience */}
+            <div className="bg-gray-800 p-6 rounded-xl shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Software</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {software.map((soft, index) => (
+                  <div key={index} className="flex flex-col items-center bg-gray-700 p-4 rounded-lg shadow">
+                    <span className="text-4xl">{soft.icon}</span>
+                    <p className="mt-2">{soft.name}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -125,31 +151,6 @@ export default function ResumeApp() {
           <p>Phone: (732) 877-0563</p>
         </div>
       </div>
-
-      {/* Modal for Projects */}
-      {selectedProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
-          <div className="bg-white text-black p-6 rounded-lg shadow-lg max-w-lg w-full">
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-2 right-2 text-xl font-bold"
-            >
-              ✕
-            </button>
-            <h2 className="text-2xl font-bold">{selectedProject.title}</h2>
-            <p>{selectedProject.description}</p>
-            <a
-              href={selectedProject.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 underline mt-2 block"
-            >
-              View Project
-            </a>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
-
